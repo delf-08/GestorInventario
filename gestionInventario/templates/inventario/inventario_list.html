@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventario</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+        form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inventario de Productos</h1>
+    
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Unidad</th>
+            <th>Acciones</th>
+        </tr>
+        {% for id, nombre, precio, unidad in productos %}
+        <tr>
+            <td>{{ id }}</td>
+            <td>{{ nombre }}</td>
+            <td>{{ precio }}</td>
+            <td>{{ unidad }}</td>
+            <td>
+                <a href="{% url 'producto_eliminar' id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Añadir Producto</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" required><br><br>
+        <label for="precio">Precio:</label>
+        <input type="number" step="0.01" name="precio" id="precio" required><br><br>
+        <label for="unidad">Unidad:</label>
+        <input type="number" name="unidad" id="unidad" required><br><br>
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>
